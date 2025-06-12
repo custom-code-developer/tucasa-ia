@@ -3,43 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Constructora ARG - Construimos la casa de tus sueños </title>
+    <title>Constructora ARG - Construimos la casa de tus sueños</title>
+    
+    <!-- Tailwind CSS desde CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos personalizados y configuración de Tailwind -->
     <style>
-        body { font-family: 'Lato', sans-serif; }
+        body { font-family: 'Lato', sans-serif; background-color: #f4f4f5; }
         h1, h2, h3, h4, h5, h6, .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fadeInUp 1s ease-out 0.3s backwards; }
+        .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .mobile-menu.open { max-height: 500px; }
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#1A237E',
+                        'brand-orange': '#E65100',
+                        'brand-dark': '#212121',
+                        'brand-light': '#F5F5F5',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50">
+<body class="text-brand-dark">
+
+    <!-- =========== HEADER =========== -->
+    <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold font-montserrat transition-colors duration-300 text-white" id="logo">
+                Constructora<span class="text-brand-orange" id="logo-span">ARG</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#hero" class="nav-link-desktop text-gray-200 hover:text-white">Inicio</a>
+                <a href="#formulario" class="nav-link-desktop text-gray-200 hover:text-white">Contacto</a>
+                <a href="#formulario" class="bg-brand-orange text-white font-bold py-2 px-6 rounded-lg hover:bg-opacity-85 transition-all duration-300 transform hover:scale-105">
+                    Cotizar
+                </a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white transition-colors duration-300">
+                    <svg id="menu-open-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                    <svg id="menu-close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-lg w-full">
+            <nav class="flex flex-col items-center space-y-4 py-4">
+                <a href="#hero" class="nav-link-mobile text-gray-700 hover:text-brand-orange text-lg">Inicio</a>
+                <a href="#formulario" class="nav-link-mobile text-gray-700 hover:text-brand-orange text-lg">Contacto</a>
+                <a href="#formulario" class="nav-link-mobile bg-brand-orange text-white font-bold w-10/12 text-center py-3 px-6 mt-2 rounded-lg hover:bg-opacity-85">
+                    Cotizar Ahora
+                </a>
+            </nav>
+        </div>
+    </header>
+
     <main>
-        <section id="formulario" class="min-h-screen flex items-center justify-center py-12 px-4">
-            <div class="max-w-4xl w-full mx-auto bg-white p-8 md:p-12 rounded-xl shadow-2xl">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Tenés una idea? Hablemos.</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">Primero, preguntale a nuestra IA cualquier duda sobre tu proyecto. Luego, si querés, completá el formulario para un presupuesto formal.</p>
-                </div>
-                <div class="mb-8">
-                    <label for="ai-message" class="block text-gray-700 font-semibold mb-2">Consultá a nuestro Asistente Virtual</label>
-                    <textarea id="ai-message" rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition" placeholder="Ej: ¿Qué necesito para empezar a construir en un terreno?"></textarea>
-                    <button id="ai-button" class="w-full mt-4 bg-blue-800 text-white font-bold py-3 rounded-lg hover:bg-blue-900 transition-all duration-300">Preguntar a la IA</button>
-                </div>
-                <div id="ai-response-container" class="hidden mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <p class="font-semibold text-blue-800 mb-2">Respuesta del Asistente:</p>
-                    <p id="ai-response-text" class="text-gray-800"></p>
+        <!-- =========== HERO =========== -->
+        <section id="hero" class="h-screen bg-cover bg-center flex items-center justify-center text-white relative" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop');">
+            <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+            <div class="relative z-10 text-center px-4 animate-fade-in-up">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight">
+                    Construimos la casa de tus sueños
+                </h1>
+                <p class="text-lg md:text-2xl mb-8 max-w-3xl mx-auto font-light text-gray-200">
+                    Calidad, confianza y diseño de vanguardia para tu hogar familiar en Argentina.
+                </p>
+                <a href="#formulario" class="bg-brand-orange text-white font-bold py-4 px-10 text-lg rounded-lg hover:bg-opacity-85 transition-all duration-300 transform hover:scale-110 shadow-lg">
+                    Solicitá tu Presupuesto
+                </a>
+            </div>
+        </section>
+
+        <!-- =========== FORMULARIO CON IA =========== -->
+        <section id="formulario" class="bg-brand-light py-20 lg:py-32">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-2xl">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">¿Tenés una idea? Hablemos.</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">
+                            Primero, preguntale a nuestra IA cualquier duda sobre tu proyecto. Luego, si querés, completá el formulario para un presupuesto formal.
+                        </p>
+                    </div>
+                    <div class="mb-8">
+                        <label for="ai-message" class="block text-gray-700 font-semibold mb-2">Consultá a nuestro Asistente Virtual</label>
+                        <textarea id="ai-message" rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-blue transition" placeholder="Ej: ¿Qué necesito para empezar a construir en un terreno?"></textarea>
+                        <button id="ai-button" class="w-full mt-4 bg-brand-blue text-white font-bold py-3 rounded-lg hover:bg-blue-900 transition-all duration-300">
+                            Preguntar a la IA
+                        </button>
+                    </div>
+                    <div id="ai-response-container" class="hidden mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p class="font-semibold text-brand-blue mb-2">Respuesta del Asistente:</p>
+                        <p id="ai-response-text" class="text-gray-800"></p>
+                    </div>
+                    <hr class="my-10">
+                    <h3 class="text-2xl font-bold text-center mb-6">Solicitá un Presupuesto Detallado</h3>
+                    <form action="https://formsubmit.co/toby39478@gmail.com" method="POST">
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-semibold mb-2">Nombre y Apellido</label>
+                                <input type="text" name="name" id="name" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">Correo Electrónico</label>
+                                <input type="email" name="email" id="email" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-semibold mb-2">Contanos sobre tu proyecto</label>
+                            <textarea name="message" id="message" rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-orange transition" required></textarea>
+                        </div>
+                        <input type="hidden" name="_next" value="URL_DE_TU_PAGINA_DE_GRACIAS.com">
+                        <input type="hidden" name="_subject" value="Nuevo Presupuesto de Construcción!">
+                        <input type="hidden" name="_captcha" value="false">
+                        <div>
+                            <button type="submit" class="w-full bg-brand-orange text-white font-bold py-4 px-10 text-lg rounded-lg hover:bg-opacity-85 transition-all">
+                                Enviar Consulta Formal
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- =========== FOOTER =========== -->
+    <footer class="bg-brand-dark text-white py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Constructora ARG. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    
+    <!-- =========== JAVASCRIPT =========== -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            const logo = document.getElementById('logo');
+            const navLinksDesktop = document.querySelectorAll('.nav-link-desktop');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuOpenIcon = document.getElementById('menu-open-icon');
+            const menuCloseIcon = document.getElementById('menu-close-icon');
+
+            const handleScroll = () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-white', 'shadow-md');
+                    logo.classList.remove('text-white');
+                    logo.classList.add('text-brand-dark');
+                    mobileMenuButton.classList.remove('text-white');
+                    mobileMenuButton.classList.add('text-brand-dark');
+                    navLinksDesktop.forEach(link => {
+                        link.classList.remove('text-gray-200', 'hover:text-white');
+                        link.classList.add('text-gray-600', 'hover:text-brand-orange');
+                    });
+                } else {
+                    if (!mobileMenu.classList.contains('open')) {
+                        header.classList.remove('bg-white', 'shadow-md');
+                        logo.classList.add('text-white');
+                        logo.classList.remove('text-brand-dark');
+                        mobileMenuButton.classList.add('text-white');
+                        mobileMenuButton.classList.remove('text-brand-dark');
+                        navLinksDesktop.forEach(link => {
+                            link.classList.add('text-gray-200', 'hover:text-white');
+                            link.classList.remove('text-gray-600', 'hover:text-brand-orange');
+                        });
+                    }
+                }
+            };
+            window.addEventListener('scroll', handleScroll);
+            mobileMenuButton.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                menuOpenIcon.classList.toggle('hidden', isOpen);
+                menuCloseIcon.classList.toggle('hidden', !isOpen);
+                if (isOpen && window.scrollY <= 50) {
+                    header.classList.add('bg-white', 'shadow-md');
+                    logo.classList.remove('text-white');
+                    logo.classList.add('text-brand-dark');
+                    mobileMenuButton.classList.remove('text-white');
+                    mobileMenuButton.classList.add('text-brand-dark');
+                } else if (!isOpen) { handleScroll(); }
+            });
+            document.querySelectorAll('.nav-link-mobile').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    menuOpenIcon.classList.remove('hidden');
+                    menuCloseIcon.classList.add('hidden');
+                    handleScroll();
+                });
+            });
+
+            // Lógica para la IA
             const aiButton = document.getElementById('ai-button');
             const aiMessage = document.getElementById('ai-message');
             const responseContainer = document.getElementById('ai-response-container');
             const responseText = document.getElementById('ai-response-text');
-
             aiButton.addEventListener('click', async () => {
                 const userMessage = aiMessage.value.trim();
                 if (!userMessage) {
@@ -56,9 +228,7 @@
                         body: JSON.stringify({ userMessage: userMessage }),
                     });
                     const data = await response.json();
-                    if (!response.ok) {
-                        throw new Error(data.error || 'Ocurrió un error desconocido.');
-                    }
+                    if (!response.ok) { throw new Error(data.error || 'Ocurrió un error desconocido.'); }
                     responseText.textContent = data.reply;
                 } catch (error) {
                     console.error('Error detallado:', error);
