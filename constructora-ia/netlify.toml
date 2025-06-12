@@ -1,8 +1,0 @@
-[build]
-  command = "echo 'No build command required'"
-  publish = "/"
-  functions = "netlify/functions"
-
-[functions."*"]
-  node_bundler = "esbuild"
-  timeout = 26
